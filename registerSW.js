@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/neuro-men/sw.js', { scope: '/neuro-men/' })})}
