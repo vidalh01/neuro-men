@@ -5,7 +5,7 @@ import { LCS } from "../class/lib_localstoraje";
 let newDetails = ""
 const clave = "datos-personas"
 let arrPersona = ref<any[]>([])
-let indexDetails = -1
+let indexDelete = -1
 
 interface Persona {
     nombre: string,
@@ -21,15 +21,18 @@ let personaDetallada = ref<Persona>({
 
 function ftshowDetails(index: number) {
     personaDetallada.value = arrPersona.value[index];
-    indexDetails = index
 };
 
-function ftDelete(index: number) {
-    LCS.remData(arrPersona.value, clave, index)
+function ftDelete() {
+    LCS.remData(arrPersona.value, clave, indexDelete)
+};
+
+function ftSaveIndexDelete(index: number) {
+    indexDelete = index
 };
 
 function ftAddDetails(arrDetalle: any[]) {
-    arrDetalle.push(newDetails)
+    arrDetalle.unshift(newDetails)
     LCS.setData(clave, arrPersona.value)
 
     newDetails = ""
@@ -56,10 +59,11 @@ onMounted(() => {
                         <div>
                             <h5>{{ persona.nombre }}</h5>
                             <p><strong>Vínculo:</strong> {{ persona.vinculo }}</p>
-                            <p><strong>Detalle:</strong> {{ persona.detalle[0] }}</p>
+                            <p><strong>Detalle:</strong> {{ persona.detalle[persona.detalle.length - 1] }}</p>
                         </div>
                         <div class="d-flex gap-2 flex-column">
-                            <button @click="ftDelete(index)" class="btn btn-danger btn-sm">
+                            <button @click="ftSaveIndexDelete(index)" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" class="btn btn-danger btn-sm">
                                 Eliminar
                             </button>
                             <button @click="ftshowDetails(index)" data-bs-toggle="modal" data-bs-target="#modalDetalles"
@@ -102,6 +106,26 @@ onMounted(() => {
                     </p>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    En Verdad Quieres Eliminar Esta Persona
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @click="ftDelete()">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
