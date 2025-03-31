@@ -41,8 +41,12 @@ function ftAddDetails(arrDetalle: any[]) {
 };
 
 function ftEliminarDetalle(index: number, arr: any[]) {
-    arr.splice(index, 1);
-    LCS.setData(clave, arrPersona.value)
+    if (confirm("¿Estás seguro de eliminar esto?")) {
+        arr.splice(index, 1);
+        LCS.setData(clave, arrPersona.value)
+    } else {
+        console.log("Cancelado");
+    }
 };
 
 function ftEditarDetalle(index: number, item: string) {
@@ -89,7 +93,7 @@ onMounted(() => {
                         </div>
                         <div class="d-flex gap-2 flex-column">
                             <button @click="ftSaveIndexDelete(index)" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" class="btn btn-danger btn-sm">
+                                data-bs-target="#modalEliminarPersona" class="btn btn-danger btn-sm">
                                 <svg width="16" height="16" fill="currentColor" class="bi bi-trash3"
                                     viewBox="0 0 16 16">
                                     <path
@@ -177,18 +181,21 @@ onMounted(() => {
     </div>
 
     <!-- Modal Eliminar -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEliminarPersona" tabindex="-1" aria-labelledby="modalEliminarPersonaLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+                    <h1 class="modal-title fs-5" id="modalEliminarPersonaLabel">Eliminar</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     En Verdad Quieres Eliminar Esta Persona
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @click="ftDelete()">Eliminar</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                         @click="ftDelete()">Eliminar</button>
                 </div>
