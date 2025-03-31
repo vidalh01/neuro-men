@@ -52,10 +52,12 @@ function ftEditarDetalle(index: number, item: string) {
 };
 
 function ftSaveEditDetails(arr: any[]) {
+    modeEdit.value = false
     arr[indexDelete] = newDetails.value
     LCS.setData(clave, arrPersona.value)
     indexDelete = -1
     newDetails.value = ""
+
 };
 
 function ftModeEditDisabled() {
@@ -95,7 +97,7 @@ onMounted(() => {
                                 </svg>
                             </button>
                             <button @click="ftshowDetails(index)" data-bs-toggle="modal" data-bs-target="#modalDetalles"
-                                class="btn btn-secondary btn-sm">
+                                class="btn btn-primary btn-sm">
                                 <svg width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
                                     viewBox="0 0 16 16">
                                     <path
