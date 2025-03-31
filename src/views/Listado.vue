@@ -130,7 +130,7 @@ onMounted(() => {
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">+ Detalles</label>
+                        <label id="detalles" class="form-label">+ Detalles</label>
                         <textarea v-model="newDetails" class="form-control" id="detalle" rows="4"
                             placeholder="Agrega detalles relevantes"></textarea>
 
@@ -145,8 +145,10 @@ onMounted(() => {
                         <div class="card p-4">
                             ✅ : {{ detalle_item }}
                             <div class="btn-group d-flex justify-content-center py-3">
-                                <button class="btn btn-light border border-1"
+
+                                <a href="#detalles" class="btn btn-light border border-1"
                                     @click="ftEditarDetalle(index, detalle_item)">
+
                                     <svg width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
                                         viewBox="0 0 16 16">
                                         <path
@@ -154,7 +156,9 @@ onMounted(() => {
                                         <path fill-rule="evenodd"
                                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                     </svg>
-                                </button>
+
+                                </a>
+
                                 <button class="btn btn-light border border-1 h-25"
                                     @click="ftEliminarDetalle(index, personaDetallada.detalle)">
                                     <svg width="16" height="16" fill="currentColor" class="bi bi-trash3"
