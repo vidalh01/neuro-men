@@ -1,4 +1,5 @@
-class TM {
+
+export class TM {
     // hora formateada
     static horaFormateada(): string {
         const now = new Date();
@@ -15,5 +16,13 @@ class TM {
         const year = now.getFullYear();
 
         return `${day}/${month}/${year}`;
+    }
+
+    // dias de la semana
+    static diasSemana(): string {
+        const diasSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+        const fecha = new Date(); // Fecha actual
+        const diaNombre = diasSemana[fecha.getDay()]; // Obtiene el nombre del día
+        return diaNombre
     }
 }

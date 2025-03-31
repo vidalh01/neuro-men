@@ -28,7 +28,9 @@ const ftSend = () => {
         detalle: arrDetalle,
     });
 
-    LCS.sendData(clave, arrPersona, newPersona.value)
+
+
+    LCS.addDataItem(clave, arrPersona, newPersona.value)
     // reset
     persona.value.nombre = ""
     persona.value.vinculo = ""
