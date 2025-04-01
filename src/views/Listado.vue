@@ -2,11 +2,11 @@
 import { onMounted, ref } from 'vue';
 import { LCS } from "../class/lib_localstoraje";
 
-let newDetails = ref("")
-const clave = "datos-personas"
-let arrPersona = ref<any[]>([])
-let indexDelete = -1
-let modeEdit = ref(false)
+let newDetails = ref<string>("");
+const clave = "datos-personas";
+let arrPersona = ref<any[]>([]);
+let indexDelete = -1;
+let modeEdit = ref(false);
 
 interface Persona {
     nombre: string,
@@ -25,51 +25,48 @@ function ftshowDetails(index: number) {
 };
 
 function ftDelete() {
-    LCS.remDataItem(arrPersona.value, clave, indexDelete)
-    indexDelete = -1
+    LCS.remDataItem(arrPersona.value, clave, indexDelete);
+    indexDelete = -1;
 };
 
 function ftSaveIndexDelete(index: number) {
-    indexDelete = index
+    indexDelete = index;
 };
 
 function ftAddDetails(arrDetalle: any[]) {
-    arrDetalle.unshift(newDetails.value)
-    LCS.setData(clave, arrPersona.value)
-
-    newDetails.value = ""
+    LCS.addDataItemLv2(arrPersona.value, arrDetalle, clave, newDetails.value, true);
+    // reset
+    newDetails.value = "";
 };
 
 function ftEliminarDetalle(index: number, arr: any[]) {
     if (confirm("¿Estás seguro de eliminar esto?")) {
-        arr.splice(index, 1);
-        LCS.setData(clave, arrPersona.value)
+        LCS.remDataItemLv2(arrPersona.value, arr, clave, index);
     } else {
         console.log("Cancelado");
     }
 };
 
 function ftEditarDetalle(index: number, item: string) {
-    modeEdit.value = true
-    newDetails.value = item
-    indexDelete = index
+    modeEdit.value = true;
+    newDetails.value = item;
+    indexDelete = index;
 };
 
 function ftSaveEditDetails(arr: any[]) {
-    modeEdit.value = false
-    arr[indexDelete] = newDetails.value
-    LCS.setData(clave, arrPersona.value)
-    indexDelete = -1
-    newDetails.value = ""
-
+    modeEdit.value = false;
+    arr[indexDelete] = newDetails.value;
+    LCS.setData(arrPersona.value, clave);
+    indexDelete = -1;
+    newDetails.value = "";
 };
 
 function ftModeEditDisabled() {
-    modeEdit.value = false
+    modeEdit.value = false;
 };
 
 onMounted(() => {
-    arrPersona.value = LCS.getData(clave)
+    arrPersona.value = LCS.getData(clave);
 });
 
 </script>
@@ -181,8 +178,7 @@ onMounted(() => {
     </div>
 
     <!-- Modal Eliminar -->
-    <div class="modal fade" id="modalEliminarPersona" tabindex="-1" aria-labelledby="modalEliminarPersonaLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modalEliminarPersona" tabindex="-1" aria-labelledby="modalEliminarPersonaLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -190,12 +186,10 @@ onMounted(() => {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    En Verdad Quieres Eliminar Esta Persona
+                    Quieres borrar a esta persona?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        @click="ftDelete()">Eliminar</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                         @click="ftDelete()">Eliminar</button>
                 </div>

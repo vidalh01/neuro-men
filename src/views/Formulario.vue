@@ -28,14 +28,13 @@ const ftSend = () => {
         detalle: arrDetalle,
     });
 
-
-
-    LCS.addDataItem(clave, arrPersona, newPersona.value)
+    LCS.addDataItem(arrPersona, clave, newPersona.value)
     // reset
     persona.value.nombre = ""
     persona.value.vinculo = ""
     persona.value.detalle = []
 
+    alert("Persona agregada correctamente");
 };
 
 onMounted(() => {
